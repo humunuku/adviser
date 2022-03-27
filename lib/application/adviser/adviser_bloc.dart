@@ -3,6 +3,7 @@ import 'package:adviser/domain/failures/failures.dart';
 import 'package:adviser/domain/usecases/adviser_usecases.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'adviser_event.dart';
