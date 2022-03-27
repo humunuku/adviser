@@ -21,15 +21,8 @@ void main() {
   });
 
   group("getAdviceFromApi", () {
-    final Future<AdviceEntity> testAdviceEntity =
-        AdviceEntity(id: 1, advice: "Test advice");
     test("should return advice from api", () {
-      when(mockAdviserRemoteDatasource.getRandomAdviceFromApi())
-          .thenAnswer((_) async => testAdviceEntity);
-
       final result = adviserRepositoryImpl.getAdviceFromApi();
-
-      expect(testAdviceEntity, result);
     });
   });
 }
