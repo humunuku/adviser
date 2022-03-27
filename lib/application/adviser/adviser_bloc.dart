@@ -9,6 +9,9 @@ import 'package:meta/meta.dart';
 part 'adviser_event.dart';
 part 'adviser_state.dart';
 
+const GENERAL_FAILURE_MESSAGE = "Something went wrong. Please try again!";
+const SERVER_FAILURE_MESSAGE = "Server not reachable. Please try again!";
+
 class AdviserBloc extends Bloc<AdviserEvent, AdviserState> {
   final AdviserUseCases useCases;
 
@@ -31,11 +34,11 @@ class AdviserBloc extends Bloc<AdviserEvent, AdviserState> {
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return "Server not reachable. Please try again!";
+        return SERVER_FAILURE_MESSAGE;
       case GeneralFailure:
-        return "Something went wrong. Please try again!";
+        return GENERAL_FAILURE_MESSAGE;
       default:
-        return "Something went wrong. Please try again!";
+        return GENERAL_FAILURE_MESSAGE;
     }
   }
 }
