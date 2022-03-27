@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:adviser/domain/entities/advice_entity.dart';
-import 'package:adviser/domain/failures/failures.dart';
 import 'package:adviser/domain/repositories/adviser_repository.dart';
 import 'package:adviser/infrastructure/datasources/adviser_remote_datasource.dart';
 import 'package:adviser/infrastructure/models/advice_model.dart';
@@ -26,7 +23,7 @@ void main() {
 
   // Create one group for every function! And within the group the differenz unit tests.
   group("getAdviceFromApi", () {
-    final testAdviceModel = AdviceModel(id: id, advice: "advice");
+    final testAdviceModel = AdviceModel(id: 1, advice: "advice");
     final AdviceEntity testAdvice = testAdviceModel;
     test(
         "should return remote data if the call to remote datasource is successful",
@@ -40,7 +37,8 @@ void main() {
 
       //assert
       verify(mockAdviserRemoteDatasource.getRandomAdviceFromApi());
-      expect(result, testAdvice);
+      expect(result, Right(testAdvice));
+      verifyNoMoreInteractions(mockAdviserRemoteDatasource);
     });
   });
 }
