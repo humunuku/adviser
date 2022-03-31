@@ -20,7 +20,7 @@ void main() {
   });
 
   group("getCachedThemeData", () {
-    final testThemeData = true;
+    const testThemeData = true;
 
     test(
         "should return a bool (theme data) if there is one stored in sharedPreferences.",
@@ -50,5 +50,17 @@ void main() {
     });
   });
 
-  group("chacheThemeData", () {});
+  group("chacheThemeData", () {
+    const testThemeData = true;
+    test("should call shared preferences and to cache theme data.", () async {
+      // arrange:
+      when(mockSharedPreferences.setBool(any, any))
+          .thenAnswer((_) async => testThemeData);
+
+      // act:
+      await themeLocalDatasource.cacheThemeData(mode: testThemeData);
+      // assert:
+      verify(mockSharedPreferences.setBool(CACHED_THEME_MODE, testThemeData));
+    });
+  });
 }

@@ -15,7 +15,7 @@ class ThemeLocalDatasourceImpl implements ThemeLocalDatasource {
 
   @override
   Future<void> cacheThemeData({required bool mode}) {
-    throw UnimplementedError();
+    return sharedPreferences.setBool(CACHED_THEME_MODE, mode);
   }
 
   @override
