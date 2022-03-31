@@ -42,6 +42,7 @@ dependencies:
   mockito: ^5.1.0 # mockign framework
   equatable: ^2.0.3 # Equatable makes objects comparable
   build_runner: ^2.1.8 # works with mockito and generates code for mockups
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
