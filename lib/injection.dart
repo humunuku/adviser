@@ -1,4 +1,5 @@
 import 'package:adviser/application/adviser/adviser_bloc.dart';
+import 'package:adviser/application/theme/theme_service.dart';
 import 'package:adviser/domain/repositories/adviser_repository.dart';
 import 'package:adviser/domain/repositories/theme_repository.dart';
 import 'package:adviser/domain/usecases/adviser_usecases.dart';
@@ -14,9 +15,12 @@ final sl = GetIt
     .instance; // sl == service locator , GetIt.I als Initialisierung auch möglich
 
 Future<void> init() async {
-  //! Blocs
+  //! Application Layer
   sl.registerFactory(() => AdviserBloc(
       useCases: sl())); //Factory: Gib mir jedes mal ein neues Objekt.
+
+  sl.registerLazySingleton<ThemeService>(
+      () => ThemeServiceImpl(themeRepository: sl()));
 
   //! Usecases
   sl.registerLazySingleton(() =>

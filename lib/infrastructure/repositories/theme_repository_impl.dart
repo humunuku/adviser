@@ -8,18 +8,23 @@ class ThemeRepositoryImpl implements ThemeRepository {
 
   final ThemeLocalDatasource themeLocalDatasource;
 
-  // Wenn man local und remote hat:
+  // if you have remote and local datasources:
   // final ThemeRemoteDatasource themeRemoteDatasource;
 
   @override
-  Future<Either<Failure, bool>> getThemeMode() {
-    // TODO: implement getThemeMode
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> getThemeMode() async {
+    // here you could dicide which datasource to use depending on network connectivity or sth like that.
+
+    try {
+      final result = await themeLocalDatasource.getChachedThemeData();
+      return Right(result);
+    } catch (e) {
+      return Left(CacheFailure());
+    }
   }
 
   @override
-  Future<void> setThemeMode() {
-    // TODO: implement setThemeMode
-    throw UnimplementedError();
+  Future<void> setThemeMode({required bool mode}) {
+    return themeLocalDatasource.cacheThemeData(mode: mode);
   }
 }
