@@ -5,7 +5,9 @@ const CACHED_THEME_MODE = "CACHED_THEME_MODE";
 
 abstract class ThemeLocalDatasource {
   Future<bool> getChachedThemeData();
+  Future<bool> getUseSystemTheme();
   Future<void> cacheThemeData({required bool mode});
+  Future<void> cacheUseSystemThemeData({required bool mode});
 }
 
 class ThemeLocalDatasourceImpl implements ThemeLocalDatasource {
@@ -26,5 +28,17 @@ class ThemeLocalDatasourceImpl implements ThemeLocalDatasource {
     } catch (e) {
       throw CacheException();
     }
+  }
+
+  @override
+  Future<void> cacheUseSystemThemeData({required bool mode}) {
+    // TODO: implement cacheUseSystemThemeData
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> getUseSystemTheme() {
+    // TODO: implement getUseSystemTheme
+    throw UnimplementedError();
   }
 }

@@ -1,22 +1,33 @@
 import 'package:adviser/application/adviser/adviser_bloc.dart';
+import 'package:adviser/application/theme/theme_service.dart';
 import 'package:adviser/presentation/adviser/widgets/advice_field.dart';
 import 'package:adviser/presentation/adviser/widgets/custom_button.dart';
 import 'package:adviser/presentation/adviser/widgets/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class AdviserPage extends StatelessWidget {
   const AdviserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final themeService = Provider.of<ThemeService>(context);
     final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Adviser",
           style: themeData.textTheme.headline1,
         ),
+        actions: [
+          Switch(
+              value: themeService.isDarkModeOn,
+              onChanged: (_) {
+                Provider.of<ThemeService>(context, listen: false).toggleTheme();
+              })
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -25,8 +36,8 @@ class AdviserPage extends StatelessWidget {
             Expanded(
               child: Center(
                 child: BlocBuilder<AdviserBloc, AdviserState>(
-                  bloc: BlocProvider.of<AdviserBloc>(context)
-                    ..add(AdviceRequestedEvent()), // Add initial state here.
+                  bloc: BlocProvider.of<AdviserBloc>(context),
+                  // ..add(AdviceRequestedEvent()), // Add initial state here.
                   /*buildWhen: (previousState, currentState) =>
                       previousState != currentState,*/ // Build only when a certain value changes.
                   builder: ((context, state) {
